@@ -1,9 +1,8 @@
 import React from "react";
-import {Card} from "react-bootstrap";
 
 
 const Company = ({name}) => {
-    return <Card body>{name}</Card>;
+    return <div className={"fs-1 mb-4 p-2"}>{name}</div>;
 };
 
 export default Company;

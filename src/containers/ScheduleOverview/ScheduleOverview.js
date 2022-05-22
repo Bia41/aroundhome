@@ -14,7 +14,10 @@ const ScheduleOverview = () => {
     }, [])
 
     return companySchedules.map(schedules => (
-        <CompanyReservation key={schedules.id} schedules={schedules} />
+        <div className={"col bg-light border rounded mx-1 mt-5"} key={schedules.id}>
+            <CompanyReservation schedules={schedules} />
+        </div>
+
     ))
 }
 

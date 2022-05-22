@@ -1,5 +1,4 @@
 import React, {useEffect, useState} from "react";
-import {Button} from "react-bootstrap";
 
 const TimeSlot = ({date, setSelectedTimeSlot, selectedTimeSlot}) => {
     const [isSelected, setIsSelected] = useState(false);
@@ -25,12 +24,15 @@ const TimeSlot = ({date, setSelectedTimeSlot, selectedTimeSlot}) => {
     }
 
     return (
-        <Button
-            variant={isSelected ? "success" : "primary"}
-            disabled={checkSlotUnavailable(date, selectedTimeSlot)}
-            onClick={() => selectTimeSlot()}>
-            {new Date(date.start_time).toLocaleTimeString()}-{new Date(date.end_time).toLocaleTimeString()}
-        </Button>
+        <div className={"list-group-item"}>
+            <button
+                className={`btn ${isSelected ? "btn-success" : "btn-primary"}`}
+                disabled={checkSlotUnavailable(date, selectedTimeSlot)}
+                onClick={() => selectTimeSlot()}>
+                {new Date(date.start_time).toLocaleTimeString()}-{new Date(date.end_time).toLocaleTimeString()}
+            </button>
+        </div>
+
     );
 };
 

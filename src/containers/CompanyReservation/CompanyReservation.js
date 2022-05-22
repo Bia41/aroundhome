@@ -10,10 +10,12 @@ const CompanyReservation = ({schedules}) => {
         <>
             <Company name={schedules.name} />
             {selectedTimeSlot && <Reservation timeSlot={selectedTimeSlot} />}
-            <TimeSlotList
-                timeSlots={schedules.time_slots}
-                selectedTimeSlot={selectedTimeSlot}
-                setSelectedTimeSlot={setSelectedTimeSlot} />
+            <div className={"card overflow-scroll"} style={{maxHeight: "70vh"}}>
+                <TimeSlotList
+                    timeSlots={schedules.time_slots}
+                    selectedTimeSlot={selectedTimeSlot}
+                    setSelectedTimeSlot={setSelectedTimeSlot} />
+            </div>
         </>
     )
 }

@@ -3,7 +3,11 @@ import ScheduleOverview from "./containers/ScheduleOverview/ScheduleOverview";
 
 function App() {
   return (
-    <ScheduleOverview />
+      <div className={"container"}>
+          <div className={"row"}>
+              <ScheduleOverview/>
+          </div>
+      </div>
   );
 }
 
