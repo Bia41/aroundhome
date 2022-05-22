@@ -4,19 +4,32 @@ import TimeSlot from "../../components/TimeSlot/TimeSlot";
 
 const TimeSlotList = ({ timeSlots, selectedTimeSlot, setSelectedTimeSlot }) => {
 
-    // const groupedTimeSlots = () => {
-    //
-    //     timeSlots.map(timeSlot)
-    // }
+    const groupTimeSlotsByDate = () => {
+        const groupedSlots = timeSlots.reduce((previousValue, currentValue)=>{
+            const day = currentValue.start_time.slice(0,10);
+            previousValue[day] = previousValue[day] || {date: currentValue, slots: []};
+            previousValue[day].slots.push(currentValue);
+            return previousValue;
+        },{});
 
-    return timeSlots.map((timeSlot, index) => {
+        return Object.values(groupedSlots);
+    }
+
+    const getWeekDay = (date) => new Date(date).toString().toUpperCase().slice(0,3);
+
+    return groupTimeSlotsByDate().map((timeSlot, timeSlotIndex) => {
         return (
-            <TimeSlot
-                key={index}
-                date={timeSlot}
-                selectedTimeSlot={selectedTimeSlot}
-                onClick={() => setSelectedTimeSlot(timeSlot)}/>
-        );
+            <>
+                <label key={timeSlotIndex}>{getWeekDay(timeSlot.date.start_time)}</label>
+                {timeSlot.slots.map((slot, slotIndex) =>
+                    <TimeSlot
+                        key={slotIndex}
+                        date={slot}
+                        selectedTimeSlot={selectedTimeSlot}
+                        setSelectedTimeSlot={setSelectedTimeSlot}/>
+                )}
+            </>
+        )
     });
 };
 export default TimeSlotList;

@@ -1,8 +1,12 @@
 import React, {useEffect, useState} from "react";
 import {Button} from "react-bootstrap";
 
-const TimeSlot = ({date, onClick, selectedTimeSlot}) => {
+const TimeSlot = ({date, setSelectedTimeSlot, selectedTimeSlot}) => {
     const [isSelected, setIsSelected] = useState(false);
+
+    useEffect(() => {
+        setIsSelected(selectedTimeSlot === date)
+    }, [selectedTimeSlot, date])
 
     const checkSlotUnavailable = (slot, selectedSlot) => {
         if(!selectedSlot) {
@@ -15,16 +19,16 @@ const TimeSlot = ({date, onClick, selectedTimeSlot}) => {
             (endSlot < endSelectedSlot && endSlot > startSelectedSlot);
     };
 
-    //TODO: Há alguma maneira de fazer isto sem renderizar tudo novamente?
-    useEffect(() => {
-        setIsSelected(selectedTimeSlot === date)
-    }, [onClick])
+    const selectTimeSlot = () => {
+        setSelectedTimeSlot(isSelected ? null : date)
+        setIsSelected(!isSelected);
+    }
 
     return (
         <Button
             variant={isSelected ? "success" : "primary"}
             disabled={checkSlotUnavailable(date, selectedTimeSlot)}
-            onClick={() => {onClick(); setIsSelected(true)}}>
+            onClick={() => selectTimeSlot()}>
             {new Date(date.start_time).toLocaleTimeString()}-{new Date(date.end_time).toLocaleTimeString()}
         </Button>
     );
